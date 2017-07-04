@@ -1,9 +1,16 @@
 package test;
 
+import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+
 import org.junit.Assert;
 import org.junit.Test;
 
 import dao.DBManager;
+import model.Comments;
 
 public class testDBManager {
 	
@@ -12,7 +19,7 @@ public class testDBManager {
 	public void testconnection(){
 		
 		boolean result = true;
-		DBManager dbManager = new dao.DBManager<>("localhost", "dbtest","comments");
+		DBManager dbManager = new MockManager();
 		
 		try {
 			
@@ -31,19 +38,55 @@ public class testDBManager {
 	
 	@SuppressWarnings("rawtypes")
 	@Test
-		public void testDelete(){
+	public void testDelete(){
 			
-			DBManager connector = new DBManager("localhost", "dbtest","comments");
-			try {
+		DBManager<Comments> dbManager = new MockManager();
+		try {
 				
-				connector.connect("edu", "1234");
-				connector.deleteAll();
+			dbManager.connect("edu", "1234");
+			dbManager.deleteAll();
 				
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				connector.close();
-			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			dbManager.close();
 		}
+	}
+	
+	
+	@SuppressWarnings("rawtypes")
+	public static class MockManager extends DBManager{
+
+		public MockManager() {
+			super("localhost", "dbtest", "comments");
+		}
+
+		@Override
+		public Object insert(Object Object) {
+			return null;
+		}
+
+		@Override
+		public Object update(Object Object) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public Object select(int id) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public ArrayList select(String strSQL) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		
+	}
 	
 }
+	
+
+	

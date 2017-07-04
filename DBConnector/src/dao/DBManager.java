@@ -5,9 +5,12 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
-public class DBManager<T> implements DBAccess<T> {
+import model.Comments;
+
+public abstract class DBManager<T> implements DBAccess<T> {
 	
 	private String dbName;
 	private String dbUri;
@@ -43,28 +46,16 @@ public class DBManager<T> implements DBAccess<T> {
 	}
 
 	@Override
-	public T insert(T Object) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public abstract T insert(T Object) throws Exception;
 
 	@Override
-	public T update(T Object) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public abstract T update(T Object);
 
 	@Override
-	public T select(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public abstract T select(int id);
 
 	@Override
-	public ArrayList<T> select(String strSQL) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public abstract ArrayList<T> select(String strSQL);
 
 	@Override
 	public void deleteAll() throws SQLException{
@@ -107,5 +98,22 @@ public class DBManager<T> implements DBAccess<T> {
 		}
 		
 	}
+	
+	/**
+	 * GETTERS AND SETTERS
+	 */
+
+	public String getDbName() {
+		return dbName;
+	}
+
+	public String getTABLE() {
+		return TABLE;
+	}
+	
+	protected Connection getConnected(){
+		return connect;
+	}
+	
 
 }

@@ -19,15 +19,16 @@ public interface DBAccess <T>{
 	 * Inserta un objecto genérico <T> en la tabla
 	 * @param Object objecto genérico
 	 * @return
+	 * @throws Exception 
 	 */
-	public T insert (T Object);
+	public T insert (T object) throws Exception;
 	
 	/**
 	 * Actualiza un objeto tipo T, donde T contiene los campos de la tabla a actualizar.
 	 * @param Object objecto genérico
 	 * @return
 	 */
-	public T update (T Object);
+	public T update (T object);
 	
 	/**
 	 * Obtiene el objeto (que son los campos de la tabla) de una 'id' pasada
