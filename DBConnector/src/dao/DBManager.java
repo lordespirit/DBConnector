@@ -5,7 +5,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 public class DBManager<T> implements DBAccess<T> {
@@ -13,11 +12,12 @@ public class DBManager<T> implements DBAccess<T> {
 	private String dbName;
 	private String dbUri;
 	private Connection connect;
-	private Statement statement;
 	private ResultSet resultSet;
 	private PreparedStatement preparedStatement;
+	private final String TABLE;
 	
-	public DBManager(String dbHost, String dbName){
+	public DBManager(String dbHost, String dbName, String dbTable){
+		this.TABLE = dbTable;
 		this.dbName = dbName;
 		this.dbUri = "jdbc:mysql://host/dbName?user=edu&password=1234";
 		dbUri = dbUri.replace("host", dbHost).replace("dbName", dbName);
@@ -32,8 +32,6 @@ public class DBManager<T> implements DBAccess<T> {
 			Class.forName("com.mysql.jdbc.Driver");
 			// jdbc:mysql://ip // database
 			connect = DriverManager.getConnection(dbUri);
-			// Statement allow to issue SQL queries to the database
-			statement = connect.createStatement();
 			
 		} catch (Exception e) {
 			
@@ -69,8 +67,20 @@ public class DBManager<T> implements DBAccess<T> {
 	}
 
 	@Override
-	public void deleteAll() {
-		// TODO Auto-generated method stub
+	public void deleteAll() throws SQLException{
+		
+		try {
+		
+			preparedStatement = connect.prepareStatement("TRUNCATE "+TABLE);
+			preparedStatement.executeUpdate();
+			
+		} catch (SQLException e) {
+			
+			close();
+			e.printStackTrace();
+			throw e;
+			
+		}
 		
 	}
 
@@ -82,7 +92,19 @@ public class DBManager<T> implements DBAccess<T> {
 
 	@Override
 	public void close() {
-		// TODO Auto-generated method stub
+
+		try {
+			
+			if (resultSet !=null)
+				resultSet.close(); resultSet = null;
+			if (preparedStatement != null)
+				preparedStatement.close(); preparedStatement = null;
+			if (connect != null)
+				connect.close(); connect = null;
+			
+		} catch (Exception e) {
+			
+		}
 		
 	}
 

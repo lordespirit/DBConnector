@@ -6,11 +6,13 @@ import org.junit.Test;
 import dao.DBManager;
 
 public class testDBManager {
-
+	
+	@SuppressWarnings("rawtypes")
 	@Test
 	public void testconnection(){
-		boolean result = false;
-		DBManager dbManager = new dao.DBManager<>("localhost", "dbtest");
+		
+		boolean result = true;
+		DBManager dbManager = new dao.DBManager<>("localhost", "dbtest","comments");
 		
 		try {
 			
@@ -26,5 +28,22 @@ public class testDBManager {
 		Assert.assertEquals(true, result);
 		
 	}
+	
+	@SuppressWarnings("rawtypes")
+	@Test
+		public void testDelete(){
+			
+			DBManager connector = new DBManager("localhost", "dbtest","comments");
+			try {
+				
+				connector.connect("edu", "1234");
+				connector.deleteAll();
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				connector.close();
+			}
+		}
 	
 }

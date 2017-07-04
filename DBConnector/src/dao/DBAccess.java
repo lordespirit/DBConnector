@@ -46,7 +46,7 @@ public interface DBAccess <T>{
 	/**
 	 * Borra todos los registros del campo (Truncate tabla)
 	 */
-	public void deleteAll();
+	public void deleteAll() throws SQLException;
 	
 	/**
 	 * Borra el registro que coincida con la 'id' enviada.
