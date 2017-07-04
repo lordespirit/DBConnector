@@ -67,9 +67,8 @@ public class testDBManager {
 		}
 
 		@Override
-		public Object update(Object Object) {
+		public void update(Object Object) {
 			// TODO Auto-generated method stub
-			return null;
 		}
 
 		@Override

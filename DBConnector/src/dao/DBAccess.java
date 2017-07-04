@@ -27,8 +27,9 @@ public interface DBAccess <T>{
 	 * Actualiza un objeto tipo T, donde T contiene los campos de la tabla a actualizar.
 	 * @param Object objecto genérico
 	 * @return
+	 * @throws Exception 
 	 */
-	public T update (T object);
+	public void update (T object) throws Exception;
 	
 	/**
 	 * Obtiene el objeto (que son los campos de la tabla) de una 'id' pasada

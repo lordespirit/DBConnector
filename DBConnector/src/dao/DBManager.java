@@ -49,7 +49,7 @@ public abstract class DBManager<T> implements DBAccess<T> {
 	public abstract T insert(T Object) throws Exception;
 
 	@Override
-	public abstract T update(T Object);
+	public abstract void update(T Object) throws Exception;
 
 	@Override
 	public abstract T select(int id);
