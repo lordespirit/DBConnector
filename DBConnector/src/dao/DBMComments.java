@@ -17,10 +17,9 @@ public class DBMComments extends DBManager<Comments>{
 	
 	@Override
 	public Comments insert(Comments object) throws SQLException { 
-		// TODO Auto-generated method stub
-		 
+		
 		  int  lastInsertedId=-1; 
-		  String strSQL = "INSERT INTO  "+ getDbTable() +" values (default, ?, ?, ?, ? , ?, ?)";
+		  String strSQL = "INSERT INTO  "+ getDbTable() +" values (default, ?, ?, ?, ?, ?, ?)";
 		  PreparedStatement preparedStatement=null; 
 		  
 			try {

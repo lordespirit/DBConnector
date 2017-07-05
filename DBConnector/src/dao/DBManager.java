@@ -63,8 +63,7 @@ public abstract class DBManager<T> implements DBAccess<T>  {
 	 public void deleteAll() throws SQLException{
 		PreparedStatement preparedStatement=null; 
 			try{
-				preparedStatement = connect
-				        .prepareStatement("truncate "+ dbTable);		        
+				preparedStatement = connect.prepareStatement("truncate "+ dbTable);		        
 				preparedStatement.executeUpdate();	
 		         			
 		    } catch (SQLException e) {
@@ -82,8 +81,7 @@ public abstract class DBManager<T> implements DBAccess<T>  {
 	public void delete(int id) throws SQLException{	
 		PreparedStatement preparedStatement=null; 
 		try {
-			preparedStatement = getConnected()
-			        .prepareStatement("delete from "+getDbTable()+"  where id= ? ; ");
+			preparedStatement = getConnected().prepareStatement("delete from "+getDbTable()+"  where id= ? ; ");
 			 preparedStatement.setInt(1, id);
 	         preparedStatement.executeUpdate();
 		
@@ -95,15 +93,7 @@ public abstract class DBManager<T> implements DBAccess<T>  {
 			} catch (Exception e1) {} 
 		}
 	}
-	
-	
-	@Override
-	public abstract T insert(T object) throws SQLException;   
 
-	
-
-
-	
 	@Override
 	public T select(int id) throws SQLException { 
 		String strSQL = "SELECT * FROM "+
@@ -128,25 +118,6 @@ public abstract class DBManager<T> implements DBAccess<T>  {
 		}
 		return generic; 
 	}
-
-	
-	/**
-	 * recupera todos los tegistros con la condicion que: 
-	 * 
-	 * la columna column operador value, donde operador puede ser: 
-	 *    =	'value'
-	 *    !='value'
-	 *    >	'value'
-	 *    <	'value'
-	 *    >='value'
-	 *    <='value'
-	 *    BETWEEN	 ? 
-	 *    LIKE	'value%'    // use el % para indicar cualquier cosa
-	 *    IN	  ? 
-	 * @param string 
-	 * @throws SQLException 
-	 * 
-	 */
 
 	@Override
 	public ArrayList<T> select(String column, String operator, String value)  throws SQLException { 
@@ -174,8 +145,7 @@ public abstract class DBManager<T> implements DBAccess<T>  {
 		
 		return list; 
 	}
-	
-	
+
 	/**
 	 * Transforma el resultado de una consulta resultSet en un objeto de tipo 
 	 * T
@@ -195,12 +165,6 @@ public abstract class DBManager<T> implements DBAccess<T>  {
 		 }		 
 		 return list; 		
 	}
-	
-	protected abstract T mapDbToObject(ResultSet resultSet) throws SQLException;  
-
-
-	
-	
 	
 	/** Verifica que la operacion sea valida  
 	 * 
@@ -233,7 +197,18 @@ public abstract class DBManager<T> implements DBAccess<T>  {
 	        }
 	 }
 	
-	/**  getters y setteres osea, metodos accesorios */ 
+	/* METODOS ABSTRACTOS */
+	
+	protected abstract T mapDbToObject(ResultSet resultSet) throws SQLException;  
+
+	@Override
+	public abstract T insert(T object) throws SQLException;   
+
+	@Override
+	public abstract void update(T object) throws SQLException; 
+	
+	
+	/*  GETTERS AND SETTERS */ 
 	
 	public String getDbName() {
 		return dbName;

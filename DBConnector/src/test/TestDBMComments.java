@@ -111,11 +111,11 @@ public class TestDBMComments {
 		ArrayList<Comments> results1 = null;  
 		ArrayList<Comments> results2 = null;
 		ArrayList<Comments> results3 = null;
+		
 		try {
+			
 			dbManager.connect("edu","1234"); 
-			
 			dbManager.deleteAll();
-			
 			dbManager.insert(comments1);
 			dbManager.insert(comments2);
 			dbManager.insert(comments3);
